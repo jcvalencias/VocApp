@@ -15,18 +15,16 @@
 
 {% if form2 is not None %}
 <div class="container">
-  {% for hidden in form2.hidden_fields %}
-  {{ hidden }}
-  {% endfor %}
+
   <form method="post">
     {% csrf_token %}
-
+    {{ form2.management_form }}
     {% for form in form2 %}
     <div class="container">
         {{ form.as_table }}
     </div>
     {% endfor %}
-    <button type = "submit" name="form2">Submit</button>
+    <button type = "submit" name="form2">Submit2</button>
 </form>
 </div>
 {% endif %}
