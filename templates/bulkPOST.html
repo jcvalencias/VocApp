@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Bulk POST{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <form method="post">
+    {% csrf_token %}
+    {% for eform in form %}
+    <div class="container">
+        {{ eform.as_table }}
+    </div>
+    {% endfor %}
+    <button type = "submit" name="form">Submit</button>
+</form>
+</div>
+
+{% endblock %}

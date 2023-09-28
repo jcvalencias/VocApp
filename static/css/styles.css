@@ -1,0 +1,15 @@
+.icon {
+    font-size: 24px; /* Adjust the icon size as needed */
+}
+
+.positive {
+    color: green;
+}
+
+.negative {
+    color: red;
+}
+
+.neutral {
+    color: yellow;
+}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Bulk Request{% endblock %}
+
+{% block content %}
+{% if form1 is not None %}
+<div class="container-fluid">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form1.as_p}}
+      <button type = "submit" name="form1">Submit</button>
+    </form>
+</div>
+{% endif %}
+
+{% if form2 is not None %}
+<div class="container">
+  {% for hidden in form2.hidden_fields %}
+  {{ hidden }}
+  {% endfor %}
+  <form method="post">
+    {% csrf_token %}
+
+    {% for form in form2 %}
+    <div class="container">
+        {{ form.as_table }}
+    </div>
+    {% endfor %}
+    <button type = "submit" name="form2">Submit</button>
+</form>
+</div>
+{% endif %}
+{% endblock %}
