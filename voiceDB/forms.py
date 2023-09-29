@@ -26,6 +26,15 @@ class VocabDB_Form(forms.ModelForm):
     #     label='Learnin_rate'
     # )
 
+class DeleteRowForm(forms.Form):
+    id_choices = VocabDB.objects.values_list('id', flat=True)
+    # Define fields for selecting rows to delete
+    selected_rows = forms.MultipleChoiceField(
+        choices=[(id, id) for id in id_choices],
+        required=False,
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'row-checkbox'})
+    )
+
 class Bulk_form(forms.Form):
     
     text = forms.CharField(

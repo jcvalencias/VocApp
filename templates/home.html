@@ -6,7 +6,10 @@
     <h1>Vocabulario</h1>
     <p>Bienvenido a tu nueva app para aprender vocabulario en Français</p>
 <div class="container">
+<form method="post" action="{% url 'delete_rows' %}">
+    {% csrf_token %}
     <table class="table table-hover" id="mytable">
+        <button type="submit" class="btn btn-danger">Delete Words</button>
         <thead>
         <tr>
             <th>French</th>
@@ -14,7 +17,7 @@
             <th>Example</th>
             <th>Learned</th>
             <th>Audio</th>
-
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -42,11 +45,13 @@
                 <!-- <button id="playButton" onclick="toggleAudio(data-val)" data-val="{{item.id}}" class="fa fa-toggle-right"> -->
             <!-- </button> -->
             </td>
+            <td><input type="checkbox" name="selected_rows" value="{{ item.id }}" class="row-checkbox"></td>
         </tr>
         {% endfor %}
         </tbody>
 
     </table>
+</form>
 </div>
 </div>
 

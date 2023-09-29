@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from voiceDB.forms import VocabDB_Form, Bulk_form
+from voiceDB.forms import VocabDB_Form, Bulk_form, DeleteRowForm
 from voiceDB.models import VocabDB
 from .settings import MEDIA_URL
 from django.core.files.base import ContentFile
@@ -28,9 +28,9 @@ def index_voc(request):
 def addVocab(request):
 
     if request.method == 'POST':
-        print(request.POST)
+        # print(request.POST)
         form = VocabDB_Form(request.POST)
-        print(form)
+        # print(form)
 
 
         if form.is_valid():
@@ -62,8 +62,8 @@ def bulk(request):
         if 'form1' in request.POST:
             
             form1 = Bulk_form(request.POST)
-            print(request.POST)
-            print(form1)
+            # print(request.POST)
+            # print(form1)
 
             if form1.is_valid():
                 
@@ -95,22 +95,31 @@ def bulk(request):
                     
                 return redirect('indexVoc')
     
-    print("else")
+    # print("else")
     form1 = Bulk_form()
     
-    print(request.method)
+    # print(request.method)
     
     return render(request, 'bulk.html', {'form1': form1, 'form2': None})
 
-# def bulkPOST(request):
-#     form = VocFormSet(request.POST)
-#     print(request.POST)
-#     print(form)
-#     if form.is_valid():
-#         # Save each form's data as a new model instance
-#         for eform in form:
-#             print(eform)
-#             eform.save()
-#         return redirect('indexVoc')
-    
-#     return render(request, 'bulkPOST.html', {'form': form})
+def delete_rows(request):
+    print('entre a la funcion')
+    if request.method == 'POST':
+        form = DeleteRowForm(request.POST)
+        print(request.POST)
+        print(form)
+
+        if form.is_valid():
+            # Get the selected row IDs
+            selected_row_ids = form.cleaned_data['selected_rows']
+
+            # Delete the selected rows (customize this part based on your model)
+            VocabDB.objects.filter(id__in=selected_row_ids).delete()
+
+            # Redirect to the same page or another page
+            return redirect('indexVoc')
+
+    else:
+        form = DeleteRowForm()
+
+    return render(request, 'home.html', {'audio_data': VocabDB.objects.all()})

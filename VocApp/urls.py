@@ -26,6 +26,7 @@ urlpatterns = [
     path('', views.index_voc, name='indexVoc'),
     path('addVocab/', views.addVocab, name='addVocab'),
     path('addVocab/bulk/', views.bulk, name='bulk'),
+    path('delete_rows/', views.delete_rows, name='delete_rows'),
     # path('addVocab/bulkPOST/', views.bulkPOST, name='bulkPOST')
 ]
 
