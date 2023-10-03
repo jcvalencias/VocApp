@@ -103,11 +103,11 @@ def bulk(request):
     return render(request, 'bulk.html', {'form1': form1, 'form2': None})
 
 def delete_rows(request):
-    print('entre a la funcion')
+    # print('entre a la funcion')
     if request.method == 'POST':
         form = DeleteRowForm(request.POST)
-        print(request.POST)
-        print(form)
+        # print(request.POST)
+        # print(form)
 
         if form.is_valid():
             # Get the selected row IDs

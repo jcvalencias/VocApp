@@ -2,17 +2,19 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.util import ngrams
 from collections import Counter
+from voiceDB.models import VocabDB
 
 # nltk.download("punkt")
 # nltk.download("stopwords")
-
+voc_words = VocabDB.objects.values_list('French', flat=True)
 # Function to preprocess and tokenize text
 def preprocess_text(text):
     # Tokenize the text into words
     words = nltk.word_tokenize(text.lower())
     
+    
     # Remove punctuation and stopwords
-    words = [word for word in words if word.isalnum() and word not in stopwords.words("french")]
+    words = [word for word in words if word.isalnum() and (word not in stopwords.words("french")) and (word not in voc_words)]
     
     
     return words
