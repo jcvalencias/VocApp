@@ -1,8 +1,14 @@
 import nltk
 from nltk.corpus import stopwords
 from nltk.util import ngrams
+from nltk import pos_tag
 from collections import Counter
 from voiceDB.models import VocabDB
+from pattern.fr import conjugate, INFINITIVE
+
+# nltk.download('universal_tagset')
+# nltk.download('maxent_treebank_pos_tagger')
+french_pos_tagger = nltk.data.load("tokenizers/punkt/french.pickle")
 
 # nltk.download("punkt")
 # nltk.download("stopwords")
@@ -12,11 +18,13 @@ def preprocess_text(text):
     # Tokenize the text into words
     words = nltk.word_tokenize(text.lower())
     
-    
     # Remove punctuation and stopwords
     words = [word for word in words if word.isalnum() and (word not in stopwords.words("french")) and (word not in voc_words)]
-    
-    
+    try:
+        words = [conjugate(word, tense=INFINITIVE) for word in words]
+    except:
+        print('unable to conjugate words')
+
     return words
 
 
